@@ -1,0 +1,36 @@
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:2.6.1'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'com.bmuschko.docker-java-application'
+
+sourceCompatibility = 1.7
+mainClassName = 'com.example.ExampleApp'
+
+docker {
+    url = 'http://localhost:2375' //'https://192.168.99.100:2376' // System.getenv('DOCKER_HOST')
+    //certPath = file(System.getenv('DOCKER_CERT_PATH'))
+    javaApplication {
+        baseImage = 'sunnyone/javacontainer-minimal:latest'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework:spring-context'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

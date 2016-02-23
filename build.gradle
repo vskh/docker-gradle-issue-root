@@ -1,0 +1,41 @@
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.spring.platform:platform-bom:2.0.2.RELEASE"
+        classpath 'io.spring.gradle:dependency-management-plugin:0.5.4.RELEASE',
+                'org.springframework.boot:spring-boot-gradle-plugin:1.3.0.RELEASE'
+    }
+}
+
+subprojects {
+    group = 'com.example'
+    version = '1.0-SNAPSHOT'
+
+    apply plugin: 'java'
+    apply plugin: 'groovy'
+    apply from: file("${rootProject.projectDir}/gradle/publishing.gradle")
+
+    dependencies {
+        testCompile 'org.springframework:spring-test'
+        testCompile "org.codehaus.groovy:groovy-all:2.4.1"
+        testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+    }
+
+    apply plugin: 'io.spring.dependency-management'
+    dependencyManagement {
+        imports {
+            mavenBom 'io.spring.platform:platform-bom:2.0.2.RELEASE'
+        }
+    }
+
+    processResources {
+        filesMatching("**/*.properties") {
+            expand(project.properties)
+        }
+    }
+}
