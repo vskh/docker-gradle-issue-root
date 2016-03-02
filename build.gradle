@@ -1,6 +1,8 @@
 group = 'com.example'
 version = '1.0-SNAPSHOT'
 
+ext['bouncycastle.version'] = '1.54'
+
 buildscript {
     repositories {
         jcenter()
