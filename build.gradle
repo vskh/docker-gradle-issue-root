@@ -1,6 +1,8 @@
 group = 'com.example'
 version = '1.0-SNAPSHOT'
 
+ext['bouncycastle.version'] = '1.54'
+
 buildscript {
     repositories {
         jcenter()
@@ -37,4 +39,8 @@ subprojects {
             expand(project.properties)
         }
     }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.11"
 }
